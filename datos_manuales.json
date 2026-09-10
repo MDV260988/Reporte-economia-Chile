@@ -1,0 +1,15 @@
+{
+  "desempleo": {
+    "valor": "9,5%",
+    "fecha": "may–jul 2026"
+  },
+  "imacec": {
+    "valor": "-1,5%",
+    "fecha": "julio 2026"
+  },
+  "crecimiento_proyectado": {
+    "valor": "0,25% a 0,75%",
+    "fecha": "proyección 9 sept 2026"
+  },
+  "ultima_actualizacion": "2026-09-09"
+}
