@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La economía chilena en simple — Septiembre 2026</title>
+<meta name="description" content="Reporte en lenguaje simple sobre la situación macroeconómica de Chile, actualizado automáticamente cada lunes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12303A;
+    --ink-soft:#3E5B64;
+    --paper:#F2F4F3;
+    --paper-deep:#E4E9E7;
+    --amber:#C08214;
+    --teal:#2F7A6B;
+    --clay:#A63D2F;
+    --line:#C6D0CD;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.65;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 90px}
+
+  header{padding:64px 0 40px;border-bottom:2px solid var(--ink)}
+  .kicker{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    font-weight:500;font-size:.78rem;letter-spacing:.02em;
+    color:var(--ink-soft);margin:0 0 22px;
+  }
+  h1{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    font-weight:800;font-size:clamp(2.3rem,7vw,3.6rem);
+    line-height:1.02;letter-spacing:-.02em;margin:0 0 20px;
+  }
+  .verdict{font-size:clamp(1.15rem,3.4vw,1.4rem);line-height:1.5;max-width:36em;margin:0;color:var(--ink-soft)}
+  .verdict strong{color:var(--ink);font-weight:600}
+
+  .live{margin:40px 0 0;padding:24px;background:var(--paper-deep);border-top:3px solid var(--teal)}
+  .live-head{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    font-weight:700;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 4px;
+  }
+  .live-note{margin:0 0 18px;font-size:.88rem;color:var(--ink-soft);max-width:none}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px}
+  .cell .lbl{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    font-weight:500;font-size:.8rem;color:var(--ink-soft);display:block;margin-bottom:2px;
+  }
+  .cell .num{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    font-weight:800;font-size:1.45rem;font-variant-numeric:tabular-nums;display:block;line-height:1.1;
+  }
+  .cell .fch{font-size:.75rem;color:var(--ink-soft);display:block;margin-top:2px}
+
+  .board{margin:44px 0 0;border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+  .row .name{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1.02rem}
+  .row .name em{font-weight:400;font-style:normal;font-size:.85rem;color:#3E5B64;display:block;margin-top:3px}
+  .row .val{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.5rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .row .say{grid-column:1/-1;font-size:.98rem;color:var(--ink-soft);line-height:1.5;margin:0}
+  .up{color:var(--clay)}
+  .flat{color:var(--amber)}
+  .ok{color:var(--teal)}
+
+  section{padding-top:52px}
+  h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:clamp(1.5rem,4.4vw,1.95rem);line-height:1.15;letter-spacing:-.015em;margin:0 0 6px}
+  .sub{margin:0 0 22px;color:var(--ink-soft);font-size:1rem;font-style:italic}
+  p{margin:0 0 18px;max-width:34em}
+  .cause{padding:20px 0;border-top:1px solid var(--line)}
+  .cause h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1.1rem;margin:0 0 8px}
+  .cause p{margin:0;font-size:1rem;color:var(--ink-soft)}
+  .cause p + p{margin-top:10px}
+
+  .pocket{background:var(--paper-deep);border-left:4px solid var(--teal);padding:22px 24px;margin:0 0 16px}
+  .pocket h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1.05rem;margin:0 0 6px}
+  .pocket p{margin:0;font-size:1rem}
+
+  .ahead{border-top:1px solid var(--line);padding:18px 0}
+  .ahead h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1.05rem;margin:0 0 6px}
+  .ahead p{margin:0;font-size:1rem;color:var(--ink-soft)}
+
+  .cal{border-top:1px solid var(--line);padding:14px 0;display:grid;grid-template-columns:auto 1fr;gap:4px 20px;align-items:baseline}
+  .cal .when{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:.95rem;white-space:nowrap}
+  .cal .what{font-size:1rem;color:var(--ink-soft);margin:0}
+
+  dl{margin:0;border-top:1px solid var(--line)}
+  dt{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:1rem;padding-top:16px}
+  dd{margin:4px 0 16px;font-size:1rem;color:var(--ink-soft);border-bottom:1px solid var(--line);padding-bottom:16px}
+
+  footer{margin-top:64px;padding-top:24px;border-top:2px solid var(--ink);font-size:.9rem;color:var(--ink-soft)}
+  footer p{max-width:none;margin:0 0 10px}
+
+  @media print{
+    body{background:#fff;font-size:11.5pt}
+    .wrap{max-width:none;padding:0}
+    section{page-break-inside:avoid}
+    .live{background:#fff;border:1px solid #999}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">Reporte para no economistas · Actualizado automáticamente cada lunes</p>
+  <h1>La economía chilena, en simple</h1>
+  <p class="verdict">En pocas palabras: <strong>el Banco Central acaba de reconocer que este año la economía prácticamente no va a crecer.</strong> Recortó su proyección a la mitad, la inflación sigue sobre 4% y el desempleo está en su nivel más alto en cinco años. Buena parte de las causas viene de afuera, pero el diagnóstico oficial ahora es explícito.</p>
+</header>
+
+<div class="live" id="live">
+  <p class="live-head">Indicadores al día</p>
+  <p class="live-note">Estas cifras se actualizan automáticamente cada lunes, con datos del Banco Central de Chile. Si la carga falla, se muestran los valores vigentes al 9 de septiembre de 2026.</p>
+  <div class="grid">
+    <div class="cell"><span class="lbl">Dólar observado</span><span class="num" id="v-dolar">$927</span><span class="fch" id="f-dolar">9 sept 2026</span></div>
+    <div class="cell"><span class="lbl">UF</span><span class="num" id="v-uf">$40.886</span><span class="fch" id="f-uf">9 sept 2026</span></div>
+    <div class="cell"><span class="lbl">IPC del mes</span><span class="num" id="v-ipc">0,6%</span><span class="fch" id="f-ipc">agosto 2026</span></div>
+    <div class="cell"><span class="lbl">Tasa del Banco Central</span><span class="num" id="v-tpm">4,50%</span><span class="fch" id="f-tpm">8 sept 2026</span></div>
+    <div class="cell"><span class="lbl">Desempleo</span><span class="num" id="v-desempleo">9,5%</span><span class="fch" id="f-desempleo">may–jul 2026</span></div>
+    <div class="cell"><span class="lbl">Cobre (libra)</span><span class="num" id="v-cobre">—</span><span class="fch" id="f-cobre">último disponible</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Lo que dijo el Banco Central esta semana</h2>
+  <p class="sub">Dos anuncios seguidos que cambian el panorama</p>
+
+  <div class="cause">
+    <h3>Martes 8: la tasa se queda donde está</h3>
+    <p>El Consejo mantuvo la tasa de interés en 4,5% por sexta vez consecutiva, con voto unánime de sus cinco integrantes. En simple: los créditos no se van a abaratar por ahora.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Miércoles 9: el recorte de proyecciones</h3>
+    <p>El informe trimestral bajó el crecimiento esperado para 2026 desde un rango de 1%–1,75% a apenas 0,25%–0,75%. Es el ajuste más brusco del año y deja al país al borde de no crecer nada.</p>
+    <p>Las razones que da el propio Banco Central: la demanda interna se debilitó más de lo previsto, el mercado laboral se deterioró, cayó la confianza de hogares y empresas, el alza de los combustibles golpeó los ingresos, y en julio se sumaron los temporales y menor producción minera.</p>
+    <p>El dato más duro del informe: la inversión, que en junio se esperaba crecer 2,2% este año, ahora cerraría en terreno negativo con una caída de 0,3%.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Los cuatro números que importan</h2>
+  <p class="sub">Qué mide cada uno, qué está diciendo y a qué fecha corresponde</p>
+
+  <div class="board">
+    <div class="row">
+      <span class="name">Cuánto crece el país<em>Proyección para todo 2026, publicada el 9 de septiembre</em></span>
+      <span class="val up">0,25% a 0,75%</span>
+      <p class="say">Es lo que el Banco Central proyecta para todo 2026. Para dimensionarlo: en diciembre pasado esperaba entre 2% y 3%. Entre enero y julio la economía acumula una caída de 0,4%.</p>
+    </div>
+    <div class="row">
+      <span class="name">Cuánto suben los precios<em>Dato de agosto, publicado el 8 de septiembre</em></span>
+      <span class="val up">4,1%</span>
+      <p class="say">Lo que subió el costo de vida en doce meses. En febrero era 2,4%. La meta del Banco Central es 3%, y ahora estima que recién se alcanzará a mediados de 2027.</p>
+    </div>
+    <div class="row">
+      <span class="name">Cuánta gente busca trabajo y no encuentra<em>Trimestre mayo–julio, publicado a fines de agosto</em></span>
+      <span class="val up">9,5%</span>
+      <p class="say">De cada 100 personas que quieren trabajar, casi 10 no tienen empleo. Es el nivel más alto en cinco años, y además hay más trabajo informal que antes.</p>
+    </div>
+    <div class="row">
+      <span class="name">El costo de pedir prestado<em>Decisión del 8 de septiembre</em></span>
+      <span class="val flat">4,5%</span>
+      <p class="say">Es la tasa que fija el Banco Central y que arrastra a los créditos de consumo e hipotecarios. Lleva todo el año igual. Con la inflación sobre 4%, no hay espacio para bajarla en el corto plazo.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Por qué está pasando</h2>
+  <p class="sub">Cuatro explicaciones, en orden de importancia</p>
+
+  <div class="cause">
+    <h3>El cobre nos falló en cantidad, no en precio</h3>
+    <p>El precio del cobre está en máximos históricos, pero Chile está sacando menos mineral. Se espera que la producción caiga 2,6% este año por problemas operativos en Codelco y en las minas de BHP, más temporales de invierno que frenaron faenas y puertos.</p>
+    <p>Como la minería pesa mucho en la economía chilena, cuando ella cae arrastra el número total del país. En agosto se exportó el monto más bajo en un año, pese a que el precio estaba 40% más caro que hace doce meses.</p>
+  </div>
+
+  <div class="cause">
+    <h3>El petróleo se encareció afuera y llegó a la bencina</h3>
+    <p>El conflicto en Medio Oriente empujó el petróleo mundial. En Chile los combustibles registraron su mayor alza desde al menos 1980, y eso se traspasó al transporte, a los alimentos y a casi todo lo demás. Es la razón principal de que la inflación se haya dado vuelta a mitad de año.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Las familias y las empresas frenaron el gasto</h3>
+    <p>Este es el factor nuevo que destaca el informe de septiembre. Durante el segundo trimestre tanto el consumo de los hogares como la inversión de las empresas se contrajeron. Cuando la gente pierde confianza y aprieta el bolsillo, la economía se enfría sola, sin necesidad de un golpe externo.</p>
+  </div>
+
+  <div class="cause">
+    <h3>El Estado está gastando menos, y eso también se siente</h3>
+    <p>El gobierno aplicó un recorte de gasto público: una rebaja pareja de 3% a todos los ministerios más ajustes específicos. Es una decisión defendible cuando la deuda viene creciendo, pero tiene un costo de corto plazo: si el Estado compra y contrata menos, hay menos actividad justo cuando la economía ya estaba débil.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Qué ha hecho el gobierno en estos seis meses</h2>
+  <p class="sub">José Antonio Kast asumió el 11 de marzo de 2026</p>
+
+  <div class="cause">
+    <h3>Ordenar las cuentas fiscales</h3>
+    <p>Se comprometió a bajar el déficit de a poco hasta 2030 y a no dejar que la deuda pública supere el 45% del tamaño de la economía. También reconoció que no logrará equilibrar completamente las cuentas antes de terminar su mandato, como había prometido en campaña.</p>
+  </div>
+
+  <div class="cause">
+    <h3>La Ley de Reconstrucción Nacional</h3>
+    <p>Es la reforma grande del período, aprobada por el Congreso en julio. Baja el impuesto a las empresas de 27% a 23% de forma gradual entre 2027 y 2029, acelera los permisos para proyectos, garantiza reglas tributarias fijas por 25 años a las inversiones grandes, exime del IVA por un año la venta de viviendas nuevas y libera de contribuciones a propietarios mayores de 65 años. También amplía en 400.000 millones de pesos el fondo para reconstruir las zonas afectadas por incendios.</p>
+    <p>Un dato importante para leer bien la coyuntura: el Banco Central atribuye a esta ley buena parte del repunte que proyecta para 2027 y 2028, cuando espera que la inversión crezca 8,1% y 7,1%. Es decir, <strong>sus efectos se esperan hacia adelante, no en el resultado de este año</strong>.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Lo que viene ahora</h3>
+    <p>Hacienda acaba de presentar una reforma al mercado financiero, y antes del 30 de septiembre debe enviar el Presupuesto 2027 al Congreso. Ya se anticipó que el gasto del Estado crecerá como máximo 1% el próximo año.</p>
+  </div>
+</section>
+
+<section>
+  <h2>¿Y los bancos y las deudas están bien?</h2>
+  <p class="sub">Lo que dice el Informe de Estabilidad Financiera, el otro reporte del Banco Central</p>
+
+  <p>Dos veces al año el Banco Central publica un informe distinto al de crecimiento: revisa si el sistema financiero aguantaría un golpe fuerte. El último es de mayo de 2026 y su conclusión general es tranquilizadora, aunque con advertencias.</p>
+
+  <div class="cause">
+    <h3>La banca resistiría un escenario severo</h3>
+    <p>Los ejercicios de tensión, que simulan una crisis fuerte, indican que los bancos chilenos se mantendrían solventes gracias a sus niveles de capital, liquidez y rentabilidad. En simple: tu dinero en el banco no es la preocupación de este informe.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Los bancos deberán guardar más capital de reserva</h3>
+    <p>El Banco Central subió el llamado requerimiento de capital contracíclico de 0,5% a 1%, con dos años de plazo para cumplirlo. Es como exigirle a los bancos un colchón de emergencia más grande, para que en una crisis puedan seguir prestando en lugar de cortar el crédito de golpe. Es una medida preventiva, no una reacción a un problema en curso.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Las familias están más o menos igual que antes</h3>
+    <p>Las vulnerabilidades de los hogares se mantienen acotadas. La deuda impaga en créditos de consumo se mantuvo estable en torno a 10,6%, mientras que en los hipotecarios subió levemente hasta 2,8%. Es decir, la gente sigue pagando su casa, pero el crédito de consumo continúa siendo el punto sensible.</p>
+    <p>Vale una advertencia de fecha: ese informe se cerró antes de que el desempleo llegara a 9,5% y antes del deterioro del consumo que constató el informe de septiembre. La próxima edición, en noviembre, es la que dirá si el mercado laboral empezó a pasar la cuenta en la morosidad.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Las empresas se han desendeudado</h3>
+    <p>La deuda de las empresas no bancarias bajó a 103% del tamaño de la economía, desde 106% en el informe anterior y 113% antes de eso. Es una mejora sostenida y una de las pocas buenas noticias estructurales del panorama.</p>
+  </div>
+
+  <div class="cause">
+    <h3>El riesgo principal está afuera</h3>
+    <p>El Banco Central identifica como amenaza central que las condiciones de financiamiento internacional se estrechen de golpe, por ejemplo si escala el conflicto en Medio Oriente. Eso encarecería el crédito, debilitaría al peso y reduciría la plata disponible para países como Chile.</p>
+    <p>Hay un detalle técnico que vale la pena entender: hoy hay más inversionistas extranjeros comprando deuda del Estado chileno. Eso es bueno porque desarrolla el mercado, pero también significa que un susto en Nueva York o Londres se traspasa más rápido a las tasas locales.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Cómo se está usando el crédito</h2>
+  <p class="sub">Datos de la Comisión para el Mercado Financiero, el organismo que fiscaliza a bancos y cooperativas</p>
+
+  <p>Si el Banco Central mira el bosque, la CMF mira árbol por árbol: cuánto se está prestando, a quién y cuánto se está pagando de vuelta. Sus cifras de julio confirman el diagnóstico y agregan matices.</p>
+
+  <div class="cause">
+    <h3>El crédito total está cayendo</h3>
+    <p>En julio los préstamos del sistema bancario cayeron 0,18% real en doce meses. El responsable es el crédito a empresas, que es el que más pesa. Encaja con lo que dijo el Banco Central: si las empresas no piden plata prestada, es porque no están invirtiendo.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Pero el crédito de consumo lleva 15 meses subiendo</h3>
+    <p>Ese es el dato que conviene mirar con atención. Las personas siguen tomando más crédito de consumo, aunque a un ritmo cada vez menor. Puede leerse de dos maneras: como señal de que los hogares aún tienen ánimo de gastar, o como señal de que están financiando el día a día con crédito en un contexto de empleo débil. Los próximos meses van a decir cuál de las dos es.</p>
+  </div>
+
+  <div class="cause">
+    <h3>La gente sigue pagando sus cuotas</h3>
+    <p>La morosidad de más de 90 días bajó en julio a 2,34%, desde 2,41% el mes anterior, y la cartera con problemas también cedió. Es una noticia mejor de lo que uno esperaría con un desempleo de 9,5%. La banca, además, sigue rentable.</p>
+    <p>Una precisión para no confundirse: esta cifra cubre todos los préstamos del sistema, incluidos los de empresas, por eso es más baja que los indicadores referidos solo a créditos de consumo.</p>
+  </div>
+
+  <div class="cause">
+    <h3>La señal de alerta está en las cooperativas</h3>
+    <p>Mientras los bancos mejoran, en las cooperativas de ahorro y crédito la morosidad subió a 2,46% desde 2,32%, y tuvieron que aumentar sus reservas para pérdidas. Su crédito de consumo casi dejó de crecer, con apenas 1,48% real en doce meses.</p>
+    <p>Esto importa porque las cooperativas atienden a hogares de ingresos más bajos. Cuando el deterioro parte por ahí, suele ser un anticipo de lo que después aparece en el resto del sistema.</p>
+  </div>
+
+  <div class="cause">
+    <h3>Cuánto del sueldo se va en deudas</h3>
+    <p>El informe anual de endeudamiento de la CMF mostró que la carga financiera de las personas, es decir la parte del ingreso que se va en pagar créditos, bajó de 13,6% a 11,9%. La cantidad de personas con deudas impagas se redujo por debajo de los 4 millones, y el grupo que destina más de la mitad de su sueldo a pagar deudas cayó de 16,5% a 14,1%.</p>
+    <p>Ojo con la fecha: ese informe se publicó en enero con datos hasta mediados de 2025, cuando las tasas venían bajando y el empleo estaba mejor. La próxima edición, en enero de 2027, será la que muestre el efecto de este año.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Qué significa esto para tu bolsillo</h2>
+  <p class="sub">La traducción práctica</p>
+
+  <div class="pocket">
+    <h3>Los créditos van a seguir caros</h3>
+    <p>Mientras la inflación esté sobre 4%, el Banco Central no va a bajar su tasa. Su propio informe sitúa el regreso a la meta recién a mediados de 2027. Si estás evaluando un crédito hipotecario o de consumo, no hay alivio a la vista en lo inmediato.</p>
+  </div>
+
+  <div class="pocket">
+    <h3>Tu sueldo sube, pero el empleo está frágil</h3>
+    <p>Los sueldos nominales están creciendo por sobre la inflación, así que quien tiene trabajo estable no ha perdido poder de compra. El problema es el otro lado: hay menos personas ocupadas que hace un año y más empleo informal.</p>
+  </div>
+
+  <div class="pocket">
+    <h3>Todo lo importado está más caro</h3>
+    <p>El dólar observado cerró en $926,94 el 9 de septiembre, bastante más alto que los $840 que el mercado proyectaba a comienzos de año. Eso encarece pasajes, tecnología, autos y buena parte del supermercado.</p>
+  </div>
+
+  <div class="pocket">
+    <h3>Las cuentas en UF suben más rápido</h3>
+    <p>La UF se ajusta con la inflación y al 9 de septiembre está en $40.885,63. Si tienes un crédito hipotecario, un arriendo o un contrato en UF, las alzas de precios de estos meses se traducen directamente en cuotas más altas.</p>
+  </div>
+
+  <div class="pocket">
+    <h3>Si estás pensando en comprar vivienda</h3>
+    <p>La nueva ley elimina el IVA en viviendas nuevas por un año y amplía subsidios para clase media. Es el único incentivo concreto y de corto plazo que hay hoy sobre la mesa para los hogares.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Qué esperar hasta marzo de 2027</h2>
+  <p class="sub">Escenario central según el Banco Central, más los riesgos alrededor</p>
+
+  <div class="ahead">
+    <h3>Este año se pierde, el próximo debería mejorar</h3>
+    <p>2026 cerraría entre 0,25% y 0,75%. Para 2027 el Banco Central proyecta entre 2% y 3%, y para 2028 entre 2,25% y 3,25%, apoyado en la recuperación de la minería y en la nueva ley.</p>
+  </div>
+
+  <div class="ahead">
+    <h3>La inflación cierra el año sobre 4%</h3>
+    <p>La proyección para fines de 2026 subió levemente a 4,3%. La buena noticia es que la inflación de fondo, que excluye combustibles y alimentos volátiles, está entre 3,2% y 3,4%: el problema es más el petróleo que un recalentamiento de la economía.</p>
+  </div>
+
+  <div class="ahead">
+    <h3>Las tasas no bajan por ahora</h3>
+    <p>Con la inflación sobre la meta hasta bien entrado 2027, el Banco Central no tiene margen para bajar la tasa pese a lo débil que está la actividad. La próxima decisión es a fines de octubre.</p>
+  </div>
+
+  <div class="ahead">
+    <h3>El desempleo no cede antes del verano</h3>
+    <p>Lo más probable es que se mantenga entre 9% y 10%, con algo de alivio estacional recién entre enero y marzo.</p>
+  </div>
+
+  <div class="ahead">
+    <h3>Lo que podría cambiar el panorama</h3>
+    <p>Para mejor: que las minas recuperen producción con el cobre caro, y que la inversión reaccione antes de lo previsto. Para peor: una nueva escalada del petróleo, o que Estados Unidos mantenga sus tasas altas por más tiempo, lo que presiona al dólar y encarece el financiamiento.</p>
+  </div>
+</section>
+
+<section>
+  <h2>De cuándo es cada dato</h2>
+  <p class="sub">Para que sepas qué tan fresca es cada cifra de este reporte</p>
+
+  <div class="cal"><span class="when">9 sept 2026</span><p class="what">Proyecciones de crecimiento, inflación e inversión. Informe de Política Monetaria del Banco Central.</p></div>
+  <div class="cal"><span class="when">9 sept 2026</span><p class="what">Dólar observado ($926,94) y UF ($40.885,63). Banco Central.</p></div>
+  <div class="cal"><span class="when">8 sept 2026</span><p class="what">Tasa de política monetaria en 4,5%. Decisión del Consejo del Banco Central.</p></div>
+  <div class="cal"><span class="when">Agosto 2026</span><p class="what">Inflación: 0,6% en el mes y 4,1% en doce meses. Publicado por el INE el 8 de septiembre.</p></div>
+  <div class="cal"><span class="when">May–jul 2026</span><p class="what">Desempleo de 9,5%. Encuesta de empleo del INE publicada a fines de agosto.</p></div>
+  <div class="cal"><span class="when">Julio 2026</span><p class="what">Actividad mensual (–1,5%), crédito bancario y morosidad. Banco Central y CMF.</p></div>
+  <div class="cal"><span class="when">Mayo 2026</span><p class="what">Solidez de la banca, deuda de las empresas y capital de reserva. Informe de Estabilidad Financiera, con datos hasta principios de año.</p></div>
+  <div class="cal"><span class="when">Enero 2026</span><p class="what">Carga financiera de los hogares y número de morosos. Informe de Endeudamiento de la CMF, con datos hasta junio de 2025.</p></div>
+
+  <p style="margin-top:26px">Los dos últimos son los más antiguos del reporte, y por eso vale leerlos con cuidado: describen una situación anterior al deterioro del empleo de este año.</p>
+</section>
+
+<section>
+  <h2>Diccionario rápido</h2>
+  <p class="sub">Por si alguna palabra se atravesó en el camino</p>
+  <dl>
+    <dt>IPoM</dt>
+    <dd>El informe que publica el Banco Central cuatro veces al año con sus proyecciones de crecimiento e inflación. Es el documento que movió la noticia esta semana.</dd>
+
+    <dt>Imacec</dt>
+    <dd>El termómetro mensual de la economía. Estima cuánto produjo el país en un mes comparado con el mismo mes del año anterior.</dd>
+
+    <dt>IPC e inflación</dt>
+    <dd>El IPC mide cuánto cambiaron los precios de lo que compran los hogares. La inflación es ese cambio expresado en porcentaje.</dd>
+
+    <dt>Tasa de política monetaria</dt>
+    <dd>El precio del dinero que fija el Banco Central. Si sube, los créditos se encarecen y la gente gasta menos, lo que frena los precios. Si baja, ocurre lo contrario.</dd>
+
+    <dt>Inversión o formación bruta de capital fijo</dt>
+    <dd>Lo que empresas y Estado gastan en construir, comprar maquinaria y ampliar capacidad. Es el motor del crecimiento futuro, y este año está cayendo.</dd>
+
+    <dt>IEF</dt>
+    <dd>Informe de Estabilidad Financiera. El otro reporte del Banco Central, publicado dos veces al año, que revisa si los bancos, las empresas y los hogares aguantarían una crisis.</dd>
+
+    <dt>Ejercicio de tensión</dt>
+    <dd>Una simulación en que se somete a los bancos a un escenario muy malo en el papel, para ver si quedarían de pie. Es un examen preventivo, no una predicción.</dd>
+
+    <dt>Colocaciones</dt>
+    <dd>El nombre técnico de los préstamos que hacen los bancos. Cuando caen, significa que se está pidiendo menos plata prestada.</dd>
+
+    <dt>Morosidad de 90 días o más</dt>
+    <dd>La porción de los préstamos cuyas cuotas llevan más de tres meses sin pagarse. Es el termómetro estándar para saber si la gente está teniendo problemas para pagar.</dd>
+
+    <dt>Carga financiera</dt>
+    <dd>El porcentaje de tu sueldo líquido que se te va en pagar créditos cada mes.</dd>
+
+    <dt>Déficit fiscal</dt>
+    <dd>Cuando el Estado gasta más de lo que recauda en un año. La diferencia se cubre con deuda.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p>Análisis actualizado al 9 de septiembre de 2026. Se actualiza automáticamente cada lunes con datos del Banco Central de Chile, INE y CMF. La sección de estabilidad financiera se basa en el Informe de Estabilidad Financiera del primer semestre de 2026, publicado en mayo; la próxima edición se publica el 4 de noviembre.</p>
+  <p>Elaborado con información pública del Instituto Nacional de Estadísticas, el Banco Central de Chile, la Comisión para el Mercado Financiero, Cochilco, el Ministerio de Hacienda y prensa económica nacional.</p>
+  <p>Este documento tiene fines informativos y educativos. No constituye asesoría financiera ni recomendación de inversión.</p>
+</footer>
+
+</div>
+
+<script>
+(async function(){
+  var cl = function(n,d){
+    return n.toLocaleString('es-CL',{minimumFractionDigits:d,maximumFractionDigits:d});
+  };
+  var fecha = function(iso){
+    try{
+      var d = new Date(iso);
+      return d.toLocaleDateString('es-CL',{day:'numeric',month:'short',year:'numeric'});
+    }catch(e){ return ''; }
+  };
+  var set = function(id, txt, fch){
+    var v = document.getElementById('v-'+id);
+    var f = document.getElementById('f-'+id);
+    if(v) v.textContent = txt;
+    if(f && fch) f.textContent = fch;
+  };
+  try{
+    var r = await fetch('https://mindicador.cl/api');
+    if(!r.ok) throw new Error('sin respuesta');
+    var d = await r.json();
+
+    if(d.dolar)         set('dolar','$'+cl(d.dolar.valor,0), fecha(d.dolar.fecha));
+    if(d.uf)            set('uf','$'+cl(d.uf.valor,0), fecha(d.uf.fecha));
+    if(d.ipc)           set('ipc',cl(d.ipc.valor,1)+'%', fecha(d.ipc.fecha));
+    if(d.tpm)           set('tpm',cl(d.tpm.valor,2)+'%', fecha(d.tpm.fecha));
+    if(d.tasa_desempleo)set('desempleo',cl(d.tasa_desempleo.valor,1)+'%', fecha(d.tasa_desempleo.fecha));
+    if(d.libra_cobre)   set('cobre','US$'+cl(d.libra_cobre.valor,2), fecha(d.libra_cobre.fecha));
+  }catch(e){
+    console.log('API mindicador no disponible, usando valores por defecto');
+  }
+})();
+</script>
+</body>
+</html>
